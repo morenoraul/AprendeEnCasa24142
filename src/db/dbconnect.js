@@ -1,16 +1,16 @@
-const mysql = require("mysql2");
+const mysql = require('mysql2');
 
 const pool = mysql.createPool({
-  host: process.env.MYSQL_ADDON_HOST,
-  user: process.env.MYSQL_ADDON_USER,
-  password: process.env.MYSQL_ADDON_PASSWORD,
-  database: process.env.MYSQL_ADDON_DB,
-  port: process.env.MYSQL_ADDON_PORT,
+  host :'mysql-aprenderencasa.alwaysdata.net',
+  user :'368507_grupo19',
+  password:'@Prender3nc@sa2024',
+  database:'aprenderencasa_db',
+  port: 3306,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0,
+  queueLimit: 0
 });
 
 module.exports = {
-  conn: pool.promise(),
-};
+  conn : pool.promise()
+}
