@@ -14,8 +14,8 @@ El objetivo de este proyecto es desarrollar una plataforma online que facilite l
 ## Tecnologías Utilizadas
 
 - **Front-end**: HTML, CSS, JavaScript, ReactJS
-- **Back-end**: Node.js, Express.js, MongoDB
-- **Base de datos**: MongoDB
+- **Back-end**: Node.js, Express.js, MySQL Workbrench
+- **Base de datos**:  MySQL Workbrench
 
 ## Participantes del Grupo
 
