@@ -1,10 +1,12 @@
-// Subida al servidor 
-
 const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const app = express();
 const port = 3000;
+
+// Clave secreta para JWT (debería estar en una variable de entorno en producción)
+const JWT_SECRET = 'tu_clave_secreta_muy_segura';
 
 // Configuración de la conexión a la base de datos
 const pool = mysql.createPool({
@@ -51,7 +53,11 @@ app.post('/registrar', async (req, res) => {
         );
 
         await conn.commit();
-        res.json({ success: true, message: "Usuario registrado exitosamente" });
+
+        // Generar token JWT
+        const token = jwt.sign({ userId: usuarioId, email: email }, JWT_SECRET, { expiresIn: '1h' });
+
+        res.json({ success: true, message: "Usuario registrado exitosamente", token });
     } catch (error) {
         await conn.rollback();
         console.error('Error al registrar usuario:', error);
@@ -83,6 +89,9 @@ app.post('/login', async (req, res) => {
             return res.status(401).json({ success: false, message: "Credenciales inválidas" });
         }
 
+        // Generar token JWT
+        const token = jwt.sign({ userId: usuario.id, email: usuario.email }, JWT_SECRET, { expiresIn: '1h' });
+
         res.json({
             success: true,
             message: "Inicio de sesión exitoso",
@@ -92,11 +101,27 @@ app.post('/login', async (req, res) => {
                 apellido: usuario.apellido,
                 email: usuario.email,
                 rol: usuario.rol
-            }
+            },
+            token
         });
     } catch (error) {
         console.error('Error en el inicio de sesión:', error);
         res.status(500).json({ success: false, message: "Error en el inicio de sesión" });
+    }
+});
+
+app.post('/validar-token', (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1]; // Bearer TOKEN
+
+    if (!token) {
+        return res.status(401).json({ success: false, message: "Token no proporcionado" });
+    }
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        res.json({ success: true, valid: true, userId: decoded.userId });
+    } catch (error) {
+        res.status(401).json({ success: false, valid: false, message: "Token inválido" });
     }
 });
 
