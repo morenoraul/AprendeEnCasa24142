@@ -1,80 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Link CSS -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Link Bootstrap-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Link Fonts -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-    <!-- Logo Sitio Web -->
-    <link rel="icon" href="images/Logo.png" type="image/x-icon">
-
-    <!-- Titulo -->
-    <title>Aprende en Casa | Iniciar Sesión</title>
+    <title>Iniciar Sesión - Plataforma de Cursos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="menu">
-                <a href="index.html"><img src="images/Logo.png" alt="Logo"></a>
-                <input type="checkbox" id="menu">
-                <label for="menu">
-                    <img src="images/botonmenu.png" class="menu-icono" alt="">
-                </label>
-                <nav class="navbar">
-                    <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="login.html">Inicia Sesíon</a></li>
-                        <li><a href="registrate.html">Registrate</a></li>
-                        <li><a href="sitioDocente.html">Sitio Docente</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <div class="container">
+        <div class="menu">
+            <a href="index.html"><img src="images/Logo.png" alt="Logo"></a>
+            <img src="images/botonmenu.png" class="menu-icono" alt="Menu">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="login.html">Inicia Sesión</a></li>
+                    <li><a href="registrate.html">Regístrate</a></li>
+                    <li><a href="sitioDocente.html">Sitio Docente</a></li>
+                </ul>
+            </nav>
         </div>
-    </header>
+    </div>
 
-    <section class="container">
-        <div class="login-page-container"> 
+    <div class="section container">
+        <div class="login-page-container">
             <div class="login-container">
                 <h2 class="h2-login">Inicia Sesión</h2>
-                <form id="login-form">
-                    <div class="form-group">
-                        <input class="imput-login" type="text" id="username" name="username" placeholder="Email" required>
+                <form id="loginForm">
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" required>
                     </div>
-                    <div class="form-group">
-                        <input class="imput-login" type="password" id="password" name="password" placeholder="Contraseña" required>
+                    <div class="form-group mb-3">
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasena" required>
                     </div>
-                    <button class="btn-login" type="submit">Acceder</button>
-                    <div class="options">
-                        <a href="registrate.html">Te olvidaste tu contraseña?</a>
-                        <span> | </span>
-                        <a href="registrate.html">Regístrate</a>
-                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Acceder</button>
                 </form>
-                <p id="alerta-mensaje" class="error-message"></p>
-                <div id="boton-acceso"></div>
+                <div class="options mt-3">
+                    <a href="recuperar-contrasena.html">¿Te olvidaste tu contraseña?</a> |
+                    <a href="registrate.html">Regístrate</a>
+                </div>
+                <div id="boton-acceso" class="mt-3"></div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <footer>
-        <div class="container-social">
-            <div class="container-buttons-social">
-                <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://web.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a>
-            </div>
+    <div class="container-social">
+        <div class="container-buttons-social">
+            <a href="https://www.facebook.com/" target="_blank"><img src="images/facebook-icon.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com" target="_blank"><img src="images/instagram-icon.png" alt="Instagram"></a>
+            <a href="https://web.whatsapp.com/" target="_blank"><img src="images/whatsapp-icon.png" alt="WhatsApp"></a>
         </div>
-    </footer>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="validacion.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const contrasena = document.getElementById('contrasena').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, contrasena })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Guardar el token en localStorage
+                    localStorage.setItem('token', data.token);
+                    document.getElementById('boton-acceso').innerHTML = `
+                        Bienvenido, ${data.user.nombre}!
+                        <button class="btn btn-secondary mt-2" onclick="location.href='index.html'">Volver al Inicio</button>
+                    `;
+                } else {
+                    document.getElementById('boton-acceso').innerText = 'Usuario o Contraseña incorrecta';
+                }
+            } catch (error) {
+                console.error('Error en el inicio de sesión:', error);
+                document.getElementById('boton-acceso').innerText = 'Error en el inicio de sesión';
+            }
+        });
+    </script>
 </body>
 </html>
