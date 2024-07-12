@@ -133,3 +133,18 @@ function mostrarCuadroDialogo(title, message) {
         modalElement.remove();
     });
 }
+
+//Login validacion basica!
+document.getElementById('login-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    let userEmail = document.getElementById('username').value;
+    let userPassword = document.getElementById('password').value;
+
+    if (userEmail && userPassword) {
+        document.getElementById('boton-acceso'),this.innerHTML = `Bienvenido a la Plataforma.<button class="btn-login" onclick="location.href='index.html'">Volver al Inicio<button/>`;
+    } else {
+        document.getElementById('alerta-mensaje'),this.innerText = 'Usuario o Contraseña incorrecta'
+    }
+
+});
