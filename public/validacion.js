@@ -1,4 +1,4 @@
-function validarFormulario() {
+async function validarFormulario() {
     const nombre = document.getElementById('nombre').value.trim();
     const apellido = document.getElementById('apellido').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -45,35 +45,58 @@ function validarFormulario() {
     if (camposIncompletos.length > 0) {
         mostrarCuadroDialogo('Error', 'Falta completar los siguientes campos:<br>' + camposIncompletos.join('<br>'));
     } else {
-        // Enviar datos al servidor para registrar al usuario
-        fetch('/registrar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                nombre,
-                apellido,
-                email,
-                dni,
-                contrasena,
-                rol,
-                nivelAcademico
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
+        try {
+            // Enviar datos al servidor para registrar al usuario
+            const response = await fetch('/registrar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre,
+                    apellido,
+                    email,
+                    dni,
+                    contrasena,
+                    rol,
+                    nivelAcademico
+                })
+            });
+
+            const data = await response.json();
+
             if (data.success) {
-                mostrarCuadroDialogo('Éxito', '¡Felicitaciones! Has sido registrado.');
+                // Validar token después del registro exitoso
+                const isTokenValid = await validarToken(data.token);
+                if (isTokenValid) {
+                    mostrarCuadroDialogo('Éxito', '¡Felicitaciones! Has sido registrado y autenticado correctamente.');
+                } else {
+                    mostrarCuadroDialogo('Error', 'Registro exitoso, pero hubo un problema con la autenticación.');
+                }
             } else {
                 mostrarCuadroDialogo('Error', data.message);
             }
-        })
-        .catch(error => {
-            mostrarCuadroDialogo('Éxito', '¡Felicitaciones! Has sido registrado.');
-           //mostrarCuadroDialogo('Error', 'Ha ocurrido un error inesperado.');
-           //console.error('Error al registrar usuario:', error);   //ACTIVARLO CUANDO SE COMPLETE CON SERVER
+        } catch (error) {
+            console.error('Error al registrar usuario:', error);
+            mostrarCuadroDialogo('Error', 'Ha ocurrido un error inesperado.');
+        }
+    }
+}
+
+async function validarToken(token) {
+    try {
+        const response = await fetch('/validar-token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
+        const data = await response.json();
+        return data.valid;
+    } catch (error) {
+        console.error('Error al validar token:', error);
+        return false;
     }
 }
 
@@ -110,18 +133,3 @@ function mostrarCuadroDialogo(title, message) {
         modalElement.remove();
     });
 }
-
-//Login validacion basica!
-document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    let userEmail = document.getElementById('username').value;
-    let userPassword = document.getElementById('password').value;
-
-    if (userEmail && userPassword) {
-        document.getElementById('boton-acceso'),this.innerHTML = `Bienvenido a la Plataforma.<button class="btn-login" onclick="location.href='index.html'">Volver al Inicio<button/>`;
-    } else {
-        document.getElementById('alerta-mensaje'),this.innerText = 'Usuario o Contraseña incorrecta'
-    }
-
-});
