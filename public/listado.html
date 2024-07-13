@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titulo -->
+    <title>Administración de Listado de Cursos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="icon" href="images/Logo.png" type="image/x-icon">
+    <style type="text/css">
+        article{display: flex;}
+        form{display: flex;}		
+        h4{width: 200px;}
+        #alta{justify-content: flex-start;}
+        #listado{display: contents;}
+        a{text-decoration: none; color: black;}
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <div class="menu">
+
+                <a href="index.html"><img src="images/Logo.png" alt="Logo"></a>
+                <input type="checkbox" id="menu"> 
+                <label for="menu">
+                    <img src="images/botonmenu.png" class="menu-icono" alt="">
+                </label>
+
+                <nav class="navbar"> <!-- Opciones menu -->
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="login.html">Inicia Sesíon</a></li>
+                        <li><a href="registro.html">Registrate</a></li>
+                        <li><a href="sitioDocente.html" >Sitio Docente</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+
+    <h2>Listado</h2>
+    <article>
+        <h4>Curso</h4>
+        <h4>Precio</h4>
+        <h4>Cantidad Horas</h4>
+    </article>
+    <article id="listado">
+        
+    </article>
+    <form id="alta" action="/listado" method="POST" enctype="multipart/form-data">
+        <input type="text" name="curso">
+        <input type="text" name="precio">
+        <input type="text" name="cantidad horas">
+        <input type="submit" value="Crear Nuevo Curso">
+    </form>
+    <!--form action="/landing?_metodo=PUT" method="POST" enctype="application/x-www-form-urlencoded">
+        <label>Actualizar: <input type="text" name="update"></label>
+        <input type="submit" value="PUT">
+    </form><br>
+    <form action="/landing?_metodo=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
+        <label>Eliminar: <input type="text" name="delete" value="${valor inyectado}"></label>
+        <input type="submit" value="DELETE">
+    </form-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/listado.js"></script>
+    <footer>
+        <div class="container-social">
+            <div class="container-buttons-social">
+                <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://web.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
