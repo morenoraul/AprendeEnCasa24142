@@ -1,4 +1,4 @@
-cconst { conn } = require('../db/dbconnect')
+const { conn } = require('../db/dbconnect')
 
 module.exports = {
 
