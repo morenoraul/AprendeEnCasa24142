@@ -1,22 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const controladores = require(`../controllers/mainController`)
-const multer = require('multer')
-const path = require('path')
 const auth = require('./../config/auth')
 
-const storage = multer.diskStorage({
-	destination: (req, file, cb) =>{cb(null, `public/img/`)},
-	filename: (req, file, cb) =>{cb(null, Date.now() + "_" + file.originalname)}
-})
-
-const uploadFile = multer({storage})
-
 router.get("/listado", auth, controladores.getListado)
-router.post('/listado', uploadFile.single('archivo'), controladores.crearRegistro)
-/*router.get('/modificar/:num', controladores.getModificar)*/
-router.get('/modificar/:num', mainController.getModificar);
-router.patch('/modificar', controladores.actualizar)
+router.post('/listado', controladores.crearRegistro) // Removido uploadFile.single('archivo')
+router.get('/modificar/:num', controladores.getModificar)
+router.patch('/modificar/:id', controladores.actualizar) // Añadido :id
+router.get('/modificar/:id', controladores.getModificar);
 router.delete('/listado', controladores.eliminar)
+router.delete('/listado/:id', controladores.eliminar);
+router.put('/modificar/:id', controladores.actualizar)
+router.delete('/eliminar/:id', controladores.eliminar)
+router.post('/crear', controladores.crearRegistro)
 
 module.exports = router

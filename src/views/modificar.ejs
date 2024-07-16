@@ -18,3 +18,11 @@
 			<p>No se encontró el registro para modificar.</p>
 		<% } %>
 <%- include('partials/footer') %>
+
+				<!----form method="POST" action="/modificar/<%= registro.nromov %>?_method=PATCH" style="display:flex">
+					<input type="text" name="codcurso" value="<%= registro.codcurso %>">
+					<input type="number" name="precio" value="<%= registro.precio %>">
+					<input type="number" name="cantidadhoras" value="<%= registro.cantidadhoras %>">
+					<input type="hidden" name="idActualizar" value="<%= registro.nromov %>">
+					<input type="submit" value="Actualizar">
+			</form--->
