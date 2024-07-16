@@ -13,5 +13,5 @@ const login = async () => {
   }
   const data = await resp.json()
   localStorage.setItem("jwt-token", data.token)
-  window.location.href="/index.html"
+  window.location.href="/listado.html"
 }
