@@ -1,8 +1,8 @@
 /* ***SERVIDOR ESTÁTICO CON EXPRESS (Módulo Externo)*** */
 const express = require(`express`)
 const override = require('method-override')
-const rutas = require('.mainRoutes.js')
-const rutasLogin = require('.loginRoutes.js')
+const rutas = require('./src/routes/mainRoutes.js')
+const rutasLogin = require('./src/routes/loginRoutes.js')
 const app = express()
 
 const port = 8080 || process.env.PORT || 3000
