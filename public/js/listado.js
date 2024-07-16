@@ -11,7 +11,7 @@ document.querySelector('body').onload = async () => {
 		})
 	if(!res.ok){
 		window.location.href="/login.html"
-		throw Error("Problemas en login")
+		throw Error("Problemas en el logueo")
 	}
 	const datos = await res.json()
 	let listaHTML = document.querySelector(`#listado`)
