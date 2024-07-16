@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+	<body>
+		<h2>Curso a Modificar</h2>
+		<article>
+			<h4>Curso</h4>
+			<h4>Precio</h4>
+			<h4>Cantidad Horas</h4>
+		</article>
+		<form method="POST" action="/modificar?_metodo=PATCH" style="display:flex">
+			<input type="number" name="codcurso" value="<%= registro.codcurso %>">
+			<input type="number" name="precio" value="<%= registro.precio %>">
+			<input type="number" name="cantidadhoras" value="<%= registro.cantidadhoras %>">
+			<input type="hidden" name="idActualizar" value="<%= registro.nromov %>">
+			<input type="submit" value="Actualizar">
+		</form>
+		
+<%- include('partials/footer') %>
