@@ -57,9 +57,9 @@
         
     </article>
     <form id="alta" action="/listado" method="POST" enctype="multipart/form-data">
-        <input type="text" name="curso">
-        <input type="text" name="precio">
-        <input type="text" name="cantidad horas">
+        <input type="text" name="curso" required>
+        <input type="text" name="precio"step="0.01" required>
+        <input type="text" name="cantidad horas"required>
         <input type="submit" value="Crear Nuevo Curso">
     </form>
     <!--form action="/landing?_metodo=PUT" method="POST" enctype="application/x-www-form-urlencoded">
