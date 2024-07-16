@@ -24,5 +24,5 @@ app.use((req, res, next) =>{
 	res.status(404).send(`<h1 style="color: red">Recurso no encontrado!</h1>`)
 })
 
-app.listen(port, () => console.log(`Hola! Esto conetado en el puerto: ${port}`))
+app.listen(port, () => console.log(`Hola! Estoy conectado en el puerto: ${port}`))
 ;
