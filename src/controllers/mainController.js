@@ -42,16 +42,22 @@ module.exports = {
 
 		getModificar: async (req, res) => {
 				try {
-						const [modificar] = await conn.query(`SELECT nromov, codcurso, precio, cantidadhoras FROM pedidos WHERE nromov=?`, req.params.num)
+						const [modificar] = await conn.query(`SELECT nromov, codcurso, precio, cantidadhoras FROM pedidos WHERE nromov=?`, [req.params.num]);
+
+						if (modificar.length === 0) {
+								return res.status(404).send('Registro no encontrado');
+						}
+
 						res.render('modificar', {
-								title: 'Modifico',
+								title: 'Modificar',
 								registro: modificar[0]
-						})
+						});
 				} catch (error) {
-						console.error('Error al obtener datos para modificar:', error)
-						res.status(500).json({ error: 'Error interno del servidor' })
+						console.error('Error al obtener datos para modificar:', error);
+						res.status(500).send('Error interno del servidor');
 				}
 		},
+
 
 		actualizar: async (req, res) => {
 				try {

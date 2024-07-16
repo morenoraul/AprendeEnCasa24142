@@ -6,12 +6,15 @@
 			<h4>Precio</h4>
 			<h4>Cantidad Horas</h4>
 		</article>
-		<form method="POST" action="/modificar?_metodo=PATCH" style="display:flex">
-			<input type="number" name="codcurso" value="<%= registro.codcurso %>">
-			<input type="number" name="precio" value="<%= registro.precio %>">
-			<input type="number" name="cantidadhoras" value="<%= registro.cantidadhoras %>">
-			<input type="hidden" name="idActualizar" value="<%= registro.nromov %>">
-			<input type="submit" value="Actualizar">
-		</form>
-		
+		<% if (registro) { %>
+			<form method="POST" action="/modificar?_metodo=PATCH" style="display:flex">
+					<input type="text" name="codcurso" value="<%= registro.codcurso %>">
+					<input type="number" name="precio" value="<%= registro.precio %>">
+					<input type="number" name="cantidadhoras" value="<%= registro.cantidadhoras %>">
+					<input type="hidden" name="idActualizar" value="<%= registro.nromov %>">
+					<input type="submit" value="Actualizar">
+			</form>
+		<% } else { %>
+			<p>No se encontró el registro para modificar.</p>
+		<% } %>
 <%- include('partials/footer') %>
